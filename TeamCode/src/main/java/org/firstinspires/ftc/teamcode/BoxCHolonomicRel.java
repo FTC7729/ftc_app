@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @TeleOp
-public class BoxCHolonomic extends OpMode {
+public class BoxCHolonomicRel extends OpMode {
 
     // Motor objects
     private DcMotor leftFront;
@@ -66,6 +66,7 @@ public class BoxCHolonomic extends OpMode {
         double dirStickY;
         double dirRot;
         double theta;
+        double thetaRot;
         double powX;
         double powY;
         double powRot;
@@ -92,16 +93,17 @@ public class BoxCHolonomic extends OpMode {
         dirStickY = gamepad1.right_stick_y;
 
         //
-        // Compute the angle of the right joystick
+        // Compute the angle of the right joystick and add the current relative angle reported by the IMU
         //
         theta    = (Math.atan2(dirStickY, dirStickX));
+        thetaRot = theta + relAngle;
 
         //
         // Calculate rotational, x and y power
         //
         powRot = dirRot;
-        powX   = Math.sqrt(Math.pow(dirStickX, 2) + Math.pow(dirStickY, 2)) * (Math.sin(theta + Math.PI / 4));
-        powY   = Math.sqrt(Math.pow(dirStickX, 2) + Math.pow(dirStickY, 2)) * (Math.sin(theta - Math.PI / 4));
+        powX   = Math.sqrt(Math.pow(dirStickX, 2) + Math.pow(dirStickY, 2)) * (Math.sin(thetaRot + Math.PI / 4));
+        powY   = Math.sqrt(Math.pow(dirStickX, 2) + Math.pow(dirStickY, 2)) * (Math.sin(thetaRot - Math.PI / 4));
 
         //
         // Determine if the resultant power for any one wheel is > 1.  If so, scale that wheel down
@@ -125,6 +127,7 @@ public class BoxCHolonomic extends OpMode {
         // Telemetry
         //
         telemetry.update();
+
     }
 
  }

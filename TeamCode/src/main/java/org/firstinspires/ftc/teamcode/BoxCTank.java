@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import java.util.Locale;
 
 @TeleOp
-public class BoxCBasic extends OpMode {
+public class BoxCTank extends OpMode {
     //
     // Wheel motors
     //
